@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<table class="table table-striped table-hover ">
+  <a href="{% url 'logout' %}">Logout</a>
+
+    <h4>Hello {{request.user}}</h4>
+    <h1>New Messages({{unseenMessages}})</h1>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Date</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for message in allMessages %}
+      <tr>
+        <td>{{message.sender}}</td>
+        <td>{{message.subject}}</td>
+        <td>{{message.created}}</td>
+        <td><a href="{% url 'message' message.id %}">View</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+  <a href="{% url 'create-message' %}" class="btn btn-secondary">Send Message</a> 
+
+{% endblock content %}
