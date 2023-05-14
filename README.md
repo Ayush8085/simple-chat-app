@@ -1,6 +1,6 @@
 ﻿# simple-chat-app
  
-**Live link :- comming soon**
+**Live link :- https://chat-api-k2dg.onrender.com**
 
 **Run command in shell/teminal**
 > python manage.py runserver
