@@ -2,11 +2,9 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from django.contrib import messages
 
-from .models import Message
 from .forms import SignupForm, MessageForm
 
 # Create your views here.
@@ -60,7 +58,9 @@ def home(request):
     allMessages = user.messages.all()
     unseenMessages = allMessages.filter(seen=False).count()
 
-    context = {'allMessages': allMessages, 'unseenMessages': unseenMessages}
+    sentMessages = user.sent_messages.all()
+
+    context = {'allMessages': allMessages, 'unseenMessages': unseenMessages, 'sentMessages': sentMessages}
     return render(request, 'home.html', context)
 
 @login_required

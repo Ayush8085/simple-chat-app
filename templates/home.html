@@ -2,31 +2,40 @@
 
 {% block content %}
 
-<table class="table table-striped table-hover ">
-  <a href="{% url 'logout' %}">Logout</a>
+<a href="{% url 'logout' %}">Logout</a>
+<h4>Hello {{request.user}}</h4>
+<h1>New Messages({{unseenMessages}})</h1>
 
-    <h4>Hello {{request.user}}</h4>
-    <h1>New Messages({{unseenMessages}})</h1>
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Subject</th>
-        <th scope="col">Date</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for message in allMessages %}
-      <tr>
-        <td>{{message.sender}}</td>
-        <td>{{message.subject}}</td>
-        <td>{{message.created}}</td>
-        <td><a href="{% url 'message' message.id %}">View</a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
 
-  </table>
+  <div class="d-flex p-2">
+  {% for message in allMessages %}
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{message.sender}}</h5>
+      <p class="card-text">{{message.subject}}</p>
+      <p class="card-text">{{message.created}}</p>
+      <a href="{% url 'message' message.id %}" class="btn btn-primary">View</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+  
+  
+<h1>Sent Messages</h1>
+<div class="d-flex p-2">
+  {% for message in sentMessages %}
+  <span>
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{message.recipient}}</h5>
+      <p class="card-text">{{message.subject}}</p>
+      <p class="card-text">{{message.created}}</p>
+    </div>
+  </div>
+</span>
+  {% endfor %}
+</div>
+
   <a href="{% url 'create-message' %}" class="btn btn-secondary">Send Message</a> 
-
-{% endblock content %}
+  {% endblock content %}
